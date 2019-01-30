@@ -12,7 +12,7 @@ var py = -500;
 var backround = "room1.png"
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(100, 100, "front.png", 100, 290, "image");
+    myGamePiece = new component(100, 100, "./img/front.png", 100, 290, "image");
     mybackround = new component(5000, 5000, backround, px, py, "image");
 }
 var myGameArea = {
@@ -106,17 +106,17 @@ function updateGameArea() {
         mybackround = new component(5000, 5000, backround, px, py, "image");
     }
     if (myGameArea.key && myGameArea.key == 81) {
-        back = "back2.png";
-        front = "front2.png";
-        left = "left2.png";
-        right = "right2.png";
+        back = "./img/back2.png";
+        front = "./img/front2.png";
+        left = "./img/left2.png";
+        right = "./img/right2.png";
         playerspeed = maxspeed;
     }
     if (myGameArea.key && myGameArea.key == 90) {
-        back = "back.png";
-        front = "front.png";
-        left = "left.png";
-        right = "right.png";
+        back = "./img/back.png";
+        front = "./img/front.png";
+        left = "./img/left.png";
+        right = "./img/right.png";
         playerspeed = normalspeed;
     }
     if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
