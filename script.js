@@ -8,12 +8,21 @@ var maxspeed = 100;
 var myGamePiece;
 var fps, ltc, d;
 var px = 0;
-var py = -500;
-var backround = "./img/room1.png"
+var py = -1200;
+var backround = "./img/road.png"
+var upmove = true;
+var downmove = true; 
+var rightmove = true;
+var leftmove = true;
+var upbacmove = true;
+var downbacmove = true;
+var rightbacmove = true;
+var leftbacmove = true;
+var room = "starting room";
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(100, 100, "./img/front.png", 100, 290, "image");
-    mybackround = new component(5000, 5000, backround, px, py, "image");
+    myGamePiece = new component(100, 100, "./img/front.png", 555, 290, "image");
+    mybackround = new component(1200, 1800, backround, px, py, "image");
 }
 var myGameArea = {
     start: function () {
@@ -84,60 +93,62 @@ function updateGameArea() {
     ctx = myGameArea.context;
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    if (myGamePiece.x > 1100) {
-        px = px - 50;
-        myGamePiece = new component(100, 100, front, 1100, myGamePiece.y, "image");
-        mybackround = new component(5000, 5000, backround, px, py, "image");
+    if (room == "starting room") {
+        if (myGamePiece.x > 1100) {
+            px = px - 50;
+            myGamePiece = new component(100, 100, front, 1100, myGamePiece.y, "image");
+            mybackround = new component(1200, 1800, backround, px, py, "image");
+        }
+        if (myGamePiece.x < 0) {
+            px = px + 50;
+            myGamePiece = new component(100, 100, front, 0, myGamePiece.y, "image");
+            mybackround = new component(1200, 1800, backround, px, py, "image");
+        }
+        if (myGamePiece.y > 490) {
+            py = py - 50;
+            myGamePiece = new component(100, 100, front, myGamePiece.x, 500, "image");
+            mybackround = new component(1200, 1800, backround, px, py, "image");
+        }
+        if (myGamePiece.y < 20) {
+            py = py + 50;
+            myGamePiece = new component(100, 100, front, myGamePiece.x, 20, "image");
+            mybackround = new component(1200, 1800, backround, px, py, "image");
+        }
+        if (myGameArea.key && myGameArea.key == 81) {
+            back = "./img/back2.png";
+            front = "./img/front2.png";
+            left = "./img/left2.png";
+            right = "./img/right2.png";
+            playerspeed = maxspeed;
+        }
+        if (myGameArea.key && myGameArea.key == 90) {
+            back = "./img/back.png";
+            front = "./img/front.png";
+            left = "./img/left.png";
+            right = "./img/right.png";
+            playerspeed = normalspeed;
+        }
+        if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
+        if (myGameArea.key && myGameArea.key == 68) { myGamePiece.speedX = playerspeed; }
+        if (myGameArea.key && myGameArea.key == 87) { myGamePiece.speedY = -playerspeed; }
+        if (myGameArea.key && myGameArea.key == 83) { myGamePiece.speedY = playerspeed; }
+        if (myGamePiece.speedY == -playerspeed) {
+            myGamePiece = new component(100, 100, back, myGamePiece.x, myGamePiece.y, "image");
+        }
+        if (myGamePiece.speedY == playerspeed) {
+            myGamePiece = new component(100, 100, front, myGamePiece.x, myGamePiece.y, "image");
+        }
+        if (myGamePiece.speedX == playerspeed) {
+            myGamePiece = new component(100, 100, right, myGamePiece.x, myGamePiece.y, "image");
+        }
+        if (myGamePiece.speedX == -playerspeed) {
+            myGamePiece = new component(100, 100, left, myGamePiece.x, myGamePiece.y, "image");
+        }
+        if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
+        if (myGameArea.key && myGameArea.key == 68) { myGamePiece.speedX = playerspeed; }
+        if (myGameArea.key && myGameArea.key == 87) { myGamePiece.speedY = -playerspeed; }
+        if (myGameArea.key && myGameArea.key == 83) { myGamePiece.speedY = playerspeed; }
     }
-    if (myGamePiece.x < 0) {
-        px = px + 50;
-        myGamePiece = new component(100, 100, front, 0, myGamePiece.y, "image");
-        mybackround = new component(5000, 5000, backround, px, py, "image");
-    }
-    if (myGamePiece.y > 490) {
-        py = py - 50;
-        myGamePiece = new component(100, 100, front, myGamePiece.x, 500, "image");
-        mybackround = new component(5000, 5000, backround, px, py, "image");
-    }
-    if (myGamePiece.y < 20) {
-        py = py + 50;
-        myGamePiece = new component(100, 100, front, myGamePiece.x, 20, "image");
-        mybackround = new component(5000, 5000, backround, px, py, "image");
-    }
-    if (myGameArea.key && myGameArea.key == 81) {
-        back = "./img/back2.png";
-        front = "./img/front2.png";
-        left = "./img/left2.png";
-        right = "./img/right2.png";
-        playerspeed = maxspeed;
-    }
-    if (myGameArea.key && myGameArea.key == 90) {
-        back = "./img/back.png";
-        front = "./img/front.png";
-        left = "./img/left.png";
-        right = "./img/right.png";
-        playerspeed = normalspeed;
-    }
-    if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
-    if (myGameArea.key && myGameArea.key == 68) { myGamePiece.speedX = playerspeed; }
-    if (myGameArea.key && myGameArea.key == 87) { myGamePiece.speedY = -playerspeed; }
-    if (myGameArea.key && myGameArea.key == 83) { myGamePiece.speedY = playerspeed; }
-    if (myGamePiece.speedY == -playerspeed) {
-        myGamePiece = new component(100, 100, back, myGamePiece.x, myGamePiece.y, "image");
-    }
-    if (myGamePiece.speedY == playerspeed) {
-        myGamePiece = new component(100, 100, front, myGamePiece.x, myGamePiece.y, "image");
-    }
-    if (myGamePiece.speedX == playerspeed) {
-        myGamePiece = new component(100, 100, right, myGamePiece.x, myGamePiece.y, "image");
-    }
-    if (myGamePiece.speedX == -playerspeed) {
-        myGamePiece = new component(100, 100, left, myGamePiece.x, myGamePiece.y, "image");
-    }
-    if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
-    if (myGameArea.key && myGameArea.key == 68) { myGamePiece.speedX = playerspeed; }
-    if (myGameArea.key && myGameArea.key == 87) { myGamePiece.speedY = -playerspeed; }
-    if (myGameArea.key && myGameArea.key == 83) { myGamePiece.speedY = playerspeed; }
     mybackround.newPos();
     mybackround.update();
     myGamePiece.newPos();
