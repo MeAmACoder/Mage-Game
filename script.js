@@ -1,7 +1,7 @@
-var back = "back.png";
-var front = "front.png";
-var left = "left.png";
-var right = "right.png";
+var back = "./img/back.png";
+var front = "./img/front.png";
+var left = "./img/left.png";
+var right = "./img/right.png";
 var normalspeed = 15;
 var playerspeed = normalspeed;
 var maxspeed = 100;
@@ -9,7 +9,7 @@ var myGamePiece;
 var fps, ltc, d;
 var px = 0;
 var py = -500;
-var backround = "room1.png"
+var backround = "./img/room1.png"
 function startGame() {
     myGameArea.start();
     myGamePiece = new component(100, 100, "./img/front.png", 100, 290, "image");
@@ -84,25 +84,24 @@ function updateGameArea() {
     ctx = myGameArea.context;
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;
-    document.getElementById("maxspeed1").innerHTML = "Max Speed: " + maxspeed + "mph";
-    if (myGamePiece.x > 1150) {
-        px = px - 300;
-        myGamePiece = new component(100, 100, front, 900, myGamePiece.y, "image");
+    if (myGamePiece.x > 1100) {
+        px = px - 50;
+        myGamePiece = new component(100, 100, front, 1100, myGamePiece.y, "image");
         mybackround = new component(5000, 5000, backround, px, py, "image");
     }
-    if (myGamePiece.x < 1) {
-        px = px + 300;
-        myGamePiece = new component(100, 100, front, 300, myGamePiece.y, "image");
+    if (myGamePiece.x < 0) {
+        px = px + 50;
+        myGamePiece = new component(100, 100, front, 0, myGamePiece.y, "image");
         mybackround = new component(5000, 5000, backround, px, py, "image");
     }
-    if (myGamePiece.y > 550) {
-        py = py - 150;
-        myGamePiece = new component(100, 100, front, myGamePiece.x, 400, "image");
+    if (myGamePiece.y > 490) {
+        py = py - 50;
+        myGamePiece = new component(100, 100, front, myGamePiece.x, 500, "image");
         mybackround = new component(5000, 5000, backround, px, py, "image");
     }
-    if (myGamePiece.y < 50) {
-        py = py + 150;
-        myGamePiece = new component(100, 100, front, myGamePiece.x, 200, "image");
+    if (myGamePiece.y < 20) {
+        py = py + 50;
+        myGamePiece = new component(100, 100, front, myGamePiece.x, 20, "image");
         mybackround = new component(5000, 5000, backround, px, py, "image");
     }
     if (myGameArea.key && myGameArea.key == 81) {
