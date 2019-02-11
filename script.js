@@ -2,13 +2,13 @@ var back = "./img/back.png";
 var front = "./img/front.png";
 var left = "./img/left.png";
 var right = "./img/right.png";
-var normalspeed = 15;
+var normalspeed = 10;
 var playerspeed = normalspeed;
 var maxspeed = 100;
 var myGamePiece;
 var fps, ltc, d;
 var px = 0;
-var py = -1200;
+var py = -4150;
 var backround = "./img/road.png"
 var upmove = true;
 var downmove = true; 
@@ -22,7 +22,9 @@ var room = "starting room";
 function startGame() {
     myGameArea.start();
     myGamePiece = new component(100, 100, "./img/front.png", 555, 290, "image");
-    mybackround = new component(1200, 1800, backround, px, py, "image");
+    myhelper = new component(100, 100, "./img/bat.png", 615, 250, "image");
+    mybackround = new component(1200, 4800, backround, px, py, "image");
+    myhouse = new component(300, 300, "./img/house1.png", 450, py, "image");
 }
 var myGameArea = {
     start: function () {
@@ -97,22 +99,26 @@ function updateGameArea() {
         if (myGamePiece.x > 1100) {
             px = px - 50;
             myGamePiece = new component(100, 100, front, 1100, myGamePiece.y, "image");
-            mybackround = new component(1200, 1800, backround, px, py, "image");
+            mybackround = new component(1200, 4800, backround, px, py, "image");
+            myhouse = new component(300, 300, "./img/house1.png", 450, py, "image");
         }
         if (myGamePiece.x < 0) {
             px = px + 50;
             myGamePiece = new component(100, 100, front, 0, myGamePiece.y, "image");
-            mybackround = new component(1200, 1800, backround, px, py, "image");
+            mybackround = new component(1200, 4800, backround, px, py, "image");
+            myhouse = new component(300, 300, "./img/house1.png", 450, py, "image");
         }
         if (myGamePiece.y > 490) {
             py = py - 50;
             myGamePiece = new component(100, 100, front, myGamePiece.x, 500, "image");
-            mybackround = new component(1200, 1800, backround, px, py, "image");
+            mybackround = new component(1200, 4800, backround, px, py, "image");
+            myhouse = new component(300, 300, "./img/house1.png", 450, py, "image");
         }
         if (myGamePiece.y < 20) {
             py = py + 50;
             myGamePiece = new component(100, 100, front, myGamePiece.x, 20, "image");
-            mybackround = new component(1200, 1800, backround, px, py, "image");
+            mybackround = new component(1200, 4800, backround, px, py, "image");
+            myhouse = new component(300, 300, "./img/house1.png", 450, py, "image");
         }
         if (myGameArea.key && myGameArea.key == 81) {
             back = "./img/back2.png";
@@ -128,29 +134,44 @@ function updateGameArea() {
             right = "./img/right.png";
             playerspeed = normalspeed;
         }
-        if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
-        if (myGameArea.key && myGameArea.key == 68) { myGamePiece.speedX = playerspeed; }
-        if (myGameArea.key && myGameArea.key == 87) { myGamePiece.speedY = -playerspeed; }
-        if (myGameArea.key && myGameArea.key == 83) { myGamePiece.speedY = playerspeed; }
-        if (myGamePiece.speedY == -playerspeed) {
-            myGamePiece = new component(100, 100, back, myGamePiece.x, myGamePiece.y, "image");
+        if (myGameArea.key && myGameArea.key == 65) {
+            myGamePiece.speedX = -playerspeed; 
+            myGamePiece = new component(100, 100, left, myGamePiece.x, myGamePiece.y, "image"); 
         }
-        if (myGamePiece.speedY == playerspeed) {
-            myGamePiece = new component(100, 100, front, myGamePiece.x, myGamePiece.y, "image");
-        }
-        if (myGamePiece.speedX == playerspeed) {
+        if (myGameArea.key && myGameArea.key == 68) { 
+            myGamePiece.speedX = playerspeed; 
+            mybat.speedX = playerspeed; 
             myGamePiece = new component(100, 100, right, myGamePiece.x, myGamePiece.y, "image");
         }
-        if (myGamePiece.speedX == -playerspeed) {
-            myGamePiece = new component(100, 100, left, myGamePiece.x, myGamePiece.y, "image");
+        if (myGameArea.key && myGameArea.key == 87) { 
+            myGamePiece.speedY = -playerspeed;
+            myhelper.speedX = -playerspeed;
+            myGamePiece = new component(100, 100, front, myGamePiece.x, myGamePiece.y, "image");
         }
-        if (myGameArea.key && myGameArea.key == 65) { myGamePiece.speedX = -playerspeed; }
-        if (myGameArea.key && myGameArea.key == 68) { myGamePiece.speedX = playerspeed; }
-        if (myGameArea.key && myGameArea.key == 87) { myGamePiece.speedY = -playerspeed; }
-        if (myGameArea.key && myGameArea.key == 83) { myGamePiece.speedY = playerspeed; }
+        if (myGameArea.key && myGameArea.key == 83) { 
+            myGamePiece.speedY = playerspeed;
+            myGamePiece = new component(100, 100, back, myGamePiece.x, myGamePiece.y, "image");
+        }
+        if (myGameArea.key && myGameArea.key == 65) { 
+            myGamePiece.speedX = -playerspeed;
+            myhelper.speedX = -playerspeed;
+        }
+        if (myGameArea.key && myGameArea.key == 68) { 
+            myGamePiece.speedX = playerspeed; 
+        }
+        if (myGameArea.key && myGameArea.key == 87) { 
+            myGamePiece.speedY = -playerspeed; 
+        }
+        if (myGameArea.key && myGameArea.key == 83) { 
+            myGamePiece.speedY = playerspeed; 
+        }
+        mybackround.newPos();
+        mybackround.update();
+        myhouse.newPos();
+        myhouse.update();
+        myhelper.newPos();
+        myhelper.update();
     }
-    mybackround.newPos();
-    mybackround.update();
     myGamePiece.newPos();
     myGamePiece.update();
     if (!ltc) {
